@@ -12,4 +12,6 @@ public interface ICourseRepository {
     Optional<Course> findById(String id) throws Exception;
     void update(Course course, String id) throws Exception;
     void delete(String id) throws Exception;
+
+    List<Course> getBy(String key, String value) throws Exception;
 }

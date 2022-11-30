@@ -2,25 +2,22 @@ package com.enigmacamp.restapidemo.repository;
 
 import com.enigmacamp.restapidemo.model.Course;
 import com.enigmacamp.restapidemo.repository.Irepository.ICourseRepository;
+import com.enigmacamp.restapidemo.util.RandomStringGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Repository
 public class CourseRepository implements ICourseRepository {
 
-    private final List<Course> courses = new ArrayList<>();
-    {
-        Course course = new Course();
-        course.setCourseId("1");
-        course.setTitle("Title");
-        course.setLink("Ini link");
-        course.setDescription("Ini desc");
+    @Autowired
+    RandomStringGenerator randomStringGenerator;
 
-        courses.add(course);
-    }
+    private final List<Course> courses = new ArrayList<>();
 
     @Override
     public List<Course> getAll() throws Exception {
@@ -29,6 +26,7 @@ public class CourseRepository implements ICourseRepository {
 
     @Override
     public Course create(Course course) throws Exception {
+        course.setCourseId(randomStringGenerator.random());
         courses.add(course);
         return course;
     }
@@ -57,12 +55,51 @@ public class CourseRepository implements ICourseRepository {
 
     @Override
     public void delete(String id) throws Exception {
-        for (Course course: courses){
-            if (course.getCourseId().equals(id)){
+        for (Course course : courses) {
+            if (course.getCourseId().equals(id)) {
                 courses.remove(course);
                 break;
             }
         }
 
     }
+
+    @Override
+    public List<Course> getBy(String key, String value) throws Exception {
+        List<Course> courseList = new ArrayList<>();
+        String newKey = key.toLowerCase();
+        String newValue = value.toLowerCase();
+        for (Course course : courses) {
+            switch (newKey) {
+                case "courseId":
+//                    courseList.stream().anyMatch(c -> c.getCourseId().contains(value));
+                    if (course.getTitle().contains(newValue)) {
+                        courseList.add(course);
+                    }
+                    break;
+                case "title":
+                    if (course.getTitle().contains(newValue)) {
+                        courseList.add(course);
+                        break;
+                    }
+                case "description":
+                    if (course.getDescription().contains(newValue)) {
+                        courseList.add(course);
+                    }
+                    break;
+                case "link":
+                    if (course.getLink().contains(newValue)) {
+                        courseList.add(course);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return courseList;
+        }
+        return null;
+    }
+
+
 }

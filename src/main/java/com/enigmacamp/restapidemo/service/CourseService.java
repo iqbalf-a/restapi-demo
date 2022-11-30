@@ -58,4 +58,14 @@ public class CourseService implements ICourseService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<Course> getBy(String key, String value) {
+        try {
+            return courseRepository.getBy(key, value);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

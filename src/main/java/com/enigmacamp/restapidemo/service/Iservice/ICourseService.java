@@ -8,8 +8,14 @@ import java.util.Optional;
 public interface ICourseService {
 
     List<Course> list();
+
     Course create(Course course);
+
     Optional<Course> get(String id);
+
     void update(Course course, String id);
+
     void delete(String id);
+
+    List<Course> getBy(String key, String value);
 }
