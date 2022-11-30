@@ -7,15 +7,15 @@ import java.util.Optional;
 
 public interface ICourseService {
 
-    List<Course> list();
+    List<Course> list() throws Exception;
 
-    Course create(Course course);
+    Course create(Course course) throws Exception;
 
-    Optional<Course> get(String id);
+    Course get(String id) throws Exception;
 
-    void update(Course course, String id);
+    void update(Course course, String id) throws Exception;
 
-    void delete(String id);
+    void delete(String id) throws Exception;
 
-    List<Course> getBy(String key, String value);
+    List<Course> getBy(String key, String value) throws Exception;
 }

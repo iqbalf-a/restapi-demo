@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+
 import java.util.Optional;
 
 @Repository
@@ -95,10 +95,8 @@ public class CourseRepository implements ICourseRepository {
                 default:
                     break;
             }
-
-            return courseList;
         }
-        return null;
+        return courseList;
     }
 
 
