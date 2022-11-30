@@ -61,7 +61,7 @@ public class CourseController {
 
     @GetMapping(params = {"keyword", "value"})
     @Order(1)
-    public ResponseEntity getBy(@RequestParam @NotBlank(message = "{invalid.keyword.required}") String keyword, @RequestParam @NotBlank(message = "{invalid.value.required") String value) throws Exception {
+    public ResponseEntity getBy(@RequestParam @NotBlank(message = "{invalid.keyword.required}") String keyword, @RequestParam @NotBlank(message = "{invalid.value.required}") String value) throws Exception {
 
         List<Course> result = courseService.getBy(keyword, value);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<>("Success get course by" + keyword, result));
