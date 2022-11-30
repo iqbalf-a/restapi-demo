@@ -7,18 +7,20 @@ import com.enigmacamp.restapidemo.model.response.SuccessResponse;
 import com.enigmacamp.restapidemo.service.Iservice.ICourseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/courses")
+@Validated
 public class CourseController {
     @Autowired
     private ModelMapper modelMapper;
@@ -58,7 +60,8 @@ public class CourseController {
     }
 
     @GetMapping(params = {"keyword", "value"})
-    public ResponseEntity getBy(@RequestParam String keyword, @RequestParam String value) throws Exception {
+    @Order(1)
+    public ResponseEntity getBy(@RequestParam @NotBlank(message = "{invalid.keyword.required}") String keyword, @RequestParam @NotBlank(message = "{invalid.value.required") String value) throws Exception {
 
         List<Course> result = courseService.getBy(keyword, value);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<>("Success get course by" + keyword, result));

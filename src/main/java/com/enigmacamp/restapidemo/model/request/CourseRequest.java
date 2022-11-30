@@ -3,10 +3,10 @@ package com.enigmacamp.restapidemo.model.request;
 import javax.validation.constraints.NotBlank;
 
 public class CourseRequest {
-    @NotBlank(message = "Title is required")
+    @NotBlank(message = "{invalid.title.required}")
     private String title;
     private String description;
-    @NotBlank(message = "Link is required")
+    @NotBlank(message = "{invalid.link.required}")
     private String link;
 
     public String getTitle() {
